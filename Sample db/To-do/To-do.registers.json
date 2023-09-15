@@ -1,0 +1,26 @@
+[{
+  "_id": {
+    "$oid": "650417e20556870014df1b9c"
+  },
+  "name": "Harsh Agrawal",
+  "email": "agrawalharsh831@gmail.com",
+  "gender": "Male",
+  "contact": {
+    "$numberLong": "8719070369"
+  },
+  "password": "$2a$08$FhdK9CPBcMlm1eJZOpYm1.1yg7tb7S0xR6a7Jh1.pYCvB51i175yS",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65044a3897065f7d3d227c1f"
+  },
+  "name": "certanity Infotech",
+  "email": "certanityinfotech@gmail.com",
+  "gender": "Others",
+  "contact": {
+    "$numberLong": "7658987659"
+  },
+  "password": "$2a$08$0KOF.emtHHR83E7HfyoVc.Lyrhf7Q4VmbWEmNjRw2e35eWY5BM9HS",
+  "__v": 0
+}]

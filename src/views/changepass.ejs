@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles/changepass.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+<body>
+    <div class="header">
+        <br>
+        <h1 style="font-size: 3.7em; padding-top: 10px; display: inline; font-family:cursive;
+        padding-left:10px; text-shadow:4px 4px 4px rgb(7, 8, 0);">To-do List</h1>
+
+
+        <nav style="float: right; margin-top: 20px;">
+            <span class="profile">
+                <% if(name){ %>
+                    <img src="./images/user-symbol.png" style="width: 30px; margin-right: 10px;" alt=""><span class="username"><%=name%></span>
+                <% } else { %>
+                    <img src="./images/user-symbol.png" style="width: 30px; margin-right: 10px;" alt=""><span class="username">USERNAME</span>
+                <% } %>
+                <div class="dropdown-content">
+                    <a href="/myprofile">My Profile</a>
+                    <a href="/logout" class="logout-btn">Log-Out</a>
+                </div>
+            </span>
+        </nav>
+    </div>
+
+    <div class="mainbody">
+        <form action="/updatepass" method="post">
+            <%if(error){%>
+                <p style="color: red;"><%=error%></p>
+            <%}%>
+            <p style="color: rgb(0, 115, 255); font-size: 1.2em; font-weight: 500;">Change Your Password!</p><br>
+            <label>Enter new Password: </label><br>
+            <input type="text" name="Password" placeholder="Enter new Password">
+
+            <br><br>
+            <label>Confirm new Password: </label><br>
+            <input type="text" name="confirmPassword" placeholder="Confirm new Password">
+
+            <br><br>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+    <a href="/backhome" class="options home-link">&#8592; Back to Home</a> <br> <br>
+</body>
+</html>

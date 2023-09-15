@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./styles/sign-up.css">
+
+    <!-- <script src="../src/app.js"></script> -->
+    <title>Sign up</title>
+  </head>
+  <body>
+    <div class="box">
+      <div class="container">
+        <div class="card">
+            <div class="top">
+                <header style="font-size: 2.2em">Create an account</header>
+                <span class="top_login" style="font-size: 1.1em; color: rgb(0, 0, 0);"
+                    >Already have an account?
+                    <p>&nbsp;&nbsp;</p>
+                    <!-- <form action="/login" method="get">
+                    <button type="submit"> -->
+                        <a href="/" style="color:  rgb(254, 211, 132)"
+                        ><b>Login here</b>
+                        </a>
+                    <!-- </button>
+                    </form> -->
+                </span>
+            </div>
+
+            <form action="/signup" method="post">
+
+                <div class="input-field">
+                <input class="input" placeholder="Name" required type="text" name="name"/>
+                <i class="bx bx-user"></i>
+                </div>
+
+                <div class="input-field">
+                <input class="input" placeholder="Email" required type="email" name="email"/>
+                <i class="bx bx-envelope"></i>
+                </div>
+
+                    
+
+                <div>
+                <select name="gender">
+                    <option>Gender</option>
+                    <option value="Male" >Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Others">Others</option>
+                </select>
+                </div>
+                    <br />
+                <div class="input-field">
+                    <input
+                        class="input"
+                        placeholder="Contact Number"
+                        required
+                        type="text"
+                        name="contact"
+                    />
+                    <i class="bx bx-phone"></i>
+                </div>
+                <div class="input-field">
+                    <input
+                        class="input"
+                        id=""
+                        placeholder="Password"
+                        req
+                        type="Password"
+                        name="password"
+                    />
+                    <i class="bx bx-lock-alt"></i>
+                </div>
+            
+                <div class="input-field">
+                    <input
+                        class="input"
+                        id=""
+                        placeholder="Confirm Password"
+                        req
+                        type="Password"
+                        name="confirmPassword"
+                        />
+                        <i class="bx bx-lock-alt"></i>
+                </div>
+                <br />
+                <div class="input-field">
+                    <% if (errorMessage) { %>
+                        <p style="color: rgb(209, 4, 4); font-size: 25px; text-align: center;"><%= errorMessage %></p>
+                    <% } %>
+                </div>
+
+                <button class="butt1">Sign - Up</button>
+                    
+            </form>
+
+            
+        </div>
+    
+    </div>
+  </body>
+</html>

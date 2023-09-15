@@ -1,0 +1,63 @@
+[{
+  "_id": {
+    "$oid": "650447fb34b0d762f5218287"
+  },
+  "user_id": "650417e20556870014df1b9c",
+  "task": "Workout",
+  "completed": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6504480334b0d762f521828b"
+  },
+  "user_id": "650417e20556870014df1b9c",
+  "task": "Play Badminton",
+  "completed": 1,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6504480e34b0d762f521828f"
+  },
+  "user_id": "650417e20556870014df1b9c",
+  "task": "Complete Today's Task",
+  "completed": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6504483c34b0d762f5218293"
+  },
+  "user_id": "650417e20556870014df1b9c",
+  "task": "Read some pages of the favourite book",
+  "completed": 1,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6504492034b0d762f52182a5"
+  },
+  "user_id": "650417e20556870014df1b9c",
+  "task": "Take 8 hours of sleep",
+  "completed": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65044a6f97065f7d3d227c24"
+  },
+  "user_id": "65044a3897065f7d3d227c1f",
+  "task": "Check for mails",
+  "completed": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65044aa297065f7d3d227c28"
+  },
+  "user_id": "65044a3897065f7d3d227c1f",
+  "task": "Update about completed tasks",
+  "completed": 1,
+  "__v": 0
+}]

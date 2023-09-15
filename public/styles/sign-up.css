@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap");
+
+* {
+  font-family: "poppins", sans-serif;
+}
+
+body{
+    background-image: url(/images/bg17.png);
+    background-size: cover;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+
+.card {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 175px 25px 175px;
+  /* background-color: white; */
+}
+
+span {
+  font-size: small;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+header {
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+.input-field .input {
+  height: 45px;
+  width: 87%;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 15px;
+  padding: 0 0 0 45px;
+  background: rgba(8, 8, 8, 0.1);
+  outline: none;
+  /* box-shadow: 5px 3px 5px rgba(75, 1, 1, 0.74); */
+  border: rgba(245, 245, 245, 0.524) solid 1px;
+  transition: background-color  1s, box-shadow 1s;
+  
+  
+  /* box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.805); */
+}
+.input-field .input:hover {
+
+  /* padding: 5px 3px 5px 3px; */
+  background-color: rgba(0, 0, 0, 0.554);
+  box-shadow: 2px 1px 2px rgba(177, 193, 29, 0.695);
+}
+
+i {
+  position: relative;
+  top: -33px;
+  left: 17px;
+  color: #fff;
+}
+
+::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.submit {
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  height: 45px;
+  outline: none;
+  width: 100%;
+  color: black;
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit:hover {
+  box-shadow: 1px 3px 3px  rgba(0, 0, 0, 0.2);
+}
+
+.two-col {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #fff;
+  font-size: small;
+  margin-top: 10px;
+}
+
+.one {
+  display: flex;
+}
+
+label a {
+  text-decoration: none;
+  color: #fff;
+}
+
+select {
+  height: 45px;
+  width: 100%;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 15px;
+  padding: 0 0 0 40px;
+  background: rgba(21, 21, 21, 0.411);
+  border: rgba(245, 245, 245, 0.524) solid 1px
+  /* outline: none;
+    padding: 5px;
+    color: #000;
+    font-size: 12px;
+    background: transparent; */
+  /* -webkit-appearance: none; */
+}
+.select:hover {
+  /* padding: 5px 3px 5px 3px; */
+  background-color: rgba(0, 0, 0, 0.554);
+  box-shadow: 4px 3px 4px rgba(177, 193, 29, 0.695);
+}
+
+option {
+  background-color: rgba(255, 255, 255, 0.579);
+  color: black;
+}
+
+.top > span > a {
+  color: black;
+  text-decoration: none;
+  font-size: 1.13em;
+}
+.butt1 {
+  cursor: pointer;
+  transition: padding 1s, background-color 1s, box-shadow 1s;
+  padding: 16px;
+  border-radius: 50px;
+  border: 0px;
+  background-color: rgba(0, 0, 0, 0.394);
+  color: white;
+  font-size: 1.1em;
+  width: 60%;
+  margin-left: 20%;
+  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.74);
+}
+.butt1:hover {
+  padding: 20px 17px 20px 17px;
+  background-color: rgba(0, 0, 0, 0.554);
+  box-shadow: 4px 3px 4px rgba(177, 193, 29, 0.695);
+}
+
