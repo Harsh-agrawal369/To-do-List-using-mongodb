@@ -67,7 +67,7 @@ UserRoute.get("/home", isLogin, async (req,res)=>{
         if(result!=null){
             let count=0;
             for(i=0; i<result.length; i++){
-                if(result[0].completed == 0){
+                if(result[i].completed == 0){
                     count++;
                 }
             }
