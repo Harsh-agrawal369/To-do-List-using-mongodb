@@ -181,7 +181,7 @@ const sendresetPasswordMail = async(name, email, token, currentURL) => {
         const mailOptions = {
             from: process.env.AUTH_GMAIL,
             to: email,
-            subject: 'Reset Password for your Travel Buddy finder account.',
+            subject: 'Reset Password for your To-do List account.',
             html: '<p> Hello ' +name+ '!<br> Please use this link and <a href="'+protocol+'//'+host+'/changepassword?token='+token+'">' + 'reset your password.' + '<br><br><br><br><br>' + 'Best Regards<br>Harsh'
         }
         transporter.sendMail(mailOptions, (error, info) =>{
