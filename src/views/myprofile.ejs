@@ -51,9 +51,8 @@
 					<div class = "col-md-12 section-header">Personal Details</div> <br><br><br><hr style="margin: 0px 0px 0 40px; width: 92%;"><br>
 				</div>
 				<div class="info-sec">
-					<div class="col-md-12">
-						<a href="#" style="float: right;"><button>Edit Details</button></a>
-					</div>
+					<a style="float: right; color: rgb(0, 148, 253);" onclick="EditDetails(this)">Edit Details</a>
+                    <br>
                     <%if(data){ %>
 
                     
@@ -83,6 +82,40 @@
         </div>
     </div>
 	<a href="/backhome" class="options home-link">&#8592; Back to Home</a> <br> <br>
+
+    <script>
+
+        function EditDetails(button) {
+                    const taskContainer = button.parentElement;
+                    if (taskContainer.querySelector('#form-e')) {
+                        return;
+                    }
+                    const newTaskHTML = `   <form action="/editDetails" method="post" id="form-e">
+                                                <div class="row">
+                                                    <div class="col-md-6 details">NAME: &nbsp;&nbsp; <input type="text" name="name" placeholder="Enter your name" style="width: 50%;border-radius: 6px;border: solid black 1px;background-color: rgba(255, 255, 255, 0.871);color: black;"></div>
+                                                    <div class="col-md-6 details">Email: &nbsp; &nbsp;<%=data.Email%></div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-6 details">Contact No: &nbsp;&nbsp; <input type="number" name="contact" placeholder="Enter conatct no" style="width: 40%;border-radius: 6px;border: solid black 1px;background-color: rgba(255, 255, 255, 0.871);color: black;"></div>
+                                                    <div class="col-md-6 details">Gender: &nbsp;&nbsp;
+                                                        <select name="gender">
+                                                            <option>Gender</option>
+                                                            <option value="Male" >Male</option>
+                                                            <option value="Female">Female</option>
+                                                            <option value="Others">Others</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <button type="submit">Update</button>
+                                                
+                                            </form>
+                    
+                    `
+                    taskContainer.outerHTML = newTaskHTML;
+    }
+    </script>
 
 </body>
 </html>

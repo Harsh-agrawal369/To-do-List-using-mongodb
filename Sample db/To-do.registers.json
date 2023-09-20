@@ -1,0 +1,52 @@
+[{
+  "_id": {
+    "$oid": "650417e20556870014df1b9c"
+  },
+  "name": "Harsh Agrawal",
+  "email": "agrawalharsh831@gmail.com",
+  "gender": "Male",
+  "contact": {
+    "$numberLong": "8719070369"
+  },
+  "password": "$2a$08$FhdK9CPBcMlm1eJZOpYm1.1yg7tb7S0xR6a7Jh1.pYCvB51i175yS",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65044a3897065f7d3d227c1f"
+  },
+  "name": "certanity Infotech",
+  "email": "certanityinfotech@gmail.com",
+  "gender": "Others",
+  "contact": {
+    "$numberLong": "7658987659"
+  },
+  "password": "$2a$08$0KOF.emtHHR83E7HfyoVc.Lyrhf7Q4VmbWEmNjRw2e35eWY5BM9HS",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65047df72d550db4c7a0d42b"
+  },
+  "name": "Harsh Agrawal",
+  "email": "agrawalharsh8311@gmail.com",
+  "gender": "Male",
+  "contact": {
+    "$numberLong": "8719070368"
+  },
+  "password": "$2a$08$ZkZxAp257Ql0Bp3RTGqcnecgcoiCcvpdkChupNZwqqSMWzciRu6Ba",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650481bd81b6278357d684de"
+  },
+  "name": "xyz",
+  "email": "xy3z@gamil.com",
+  "gender": "Others",
+  "contact": {
+    "$numberLong": "6436587642"
+  },
+  "password": "$2a$08$7X0MMaW.hvVl5Ja0Ij8TPOkPWVK/CjRUJORZRoUdN5IXsiYKPpY3q",
+  "__v": 0
+}]

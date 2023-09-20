@@ -127,4 +127,7 @@ UserRoute.post("/login", controller.LoginUser);
 //Rendering Update Password Post Request
 UserRoute.post("/updatepass", controller.UpdatePassword);
 
+//Rendering Edit Deatils Post Request
+UserRoute.post("/editDetails", controller.Editdetails);
+
 module.exports= UserRoute;

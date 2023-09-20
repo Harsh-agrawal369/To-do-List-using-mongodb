@@ -132,6 +132,38 @@ nav > img {
 }
 
 button{
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 166, 217, 0.729);
     border: none;
+    color: white;
+    width: 12%;
+    padding: 8px;
+    font-size: 1.3em;
+    border-radius: 12px;
+    border: solid black 1px;
+    
 }
+
+select {
+    height: 35px;
+    width: 40%;
+    border: none;
+    border-radius: 30px;
+    color: #000000;
+    font-size: 15px;
+    padding: 0 0 0 40px;
+    background: rgba(243, 243, 243, 0.764);
+    border: rgba(245, 245, 245, 0.524) solid 1px
+}
+.select:hover {
+    /* padding: 5px 3px 5px 3px; */
+    background-color: rgba(0, 0, 0, 0.554);
+    box-shadow: 4px 3px 4px rgba(177, 193, 29, 0.695);
+}
+
+#form-e .input{
+    width: 70%;
+    border-radius: 10px;
+    border: solid black 1px;
+    background-color: rgba(255, 255, 255, 0.171);
+    color: black;
+} 

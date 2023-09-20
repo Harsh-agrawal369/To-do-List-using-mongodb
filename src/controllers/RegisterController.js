@@ -85,8 +85,40 @@ const UpdatePassword = async (req,res) => {
         res.render("login", {errorMessage: "Internal server error"});
     }
 }
+
+const Editdetails = async (req,res) => {
+    try{
+        const {name , contact, gender} = req.body;
+
+        if(name!=""){
+            await Register.findOneAndUpdate(
+                {_id: req.session.user_id},
+                {$set: {name: name}}
+            );
+        }
+        if(contact!=""){
+            await Register.findOneAndUpdate(
+                {_id: req.session.user_id},
+                {$set: {contact: contact}}
+            );
+        }
+        if(gender!="Gender"){
+            await Register.findOneAndUpdate(
+                {_id: req.session.user_id},
+                {$set: {gender: gender}}
+            );
+        }
+        const user = await Register.findOne({_id: req.session.user_id});
+        res.render("myprofile",{name: user.name, data: user, Message: "Details Updated Successfully!"})
+    }catch(err){
+        console.log(err);
+        res.render("login", {errorMessage: "Internal server error"});
+    }
+}
+
 module.exports = {
     InsertUser,
     LoginUser,
-    UpdatePassword
+    UpdatePassword,
+    Editdetails
 }
