@@ -104,16 +104,23 @@ UserRoute.get("/backhome", isLogin, (req,res) => {
 })
 
 //Rendering ChangePassword
-UserRoute.get("/changepassword", isLogin,async  (req,res) =>{
+UserRoute.get("/changepassword", async  (req,res) =>{
     try{
-        const user = await Register.findOne({_id: req.session.user_id});
-        res.render("changepass", {name: user.name, error: null});
+        res.render("changepass", { error: null});
     }catch(err){
         console.log(err);
         res.render("login", {errorMessage: "Internal server error!"});
     }
 })
 
+UserRoute.get("/forgotPassword", async (req,res) => {
+    try{
+        res.render("forgotPassword", {error: null});
+    }catch(err){
+        console.log(err);
+        res.render("login", {errorMessage: "Internal server error!"});
+    }
+})
 
 
 //Post requests
@@ -129,5 +136,8 @@ UserRoute.post("/updatepass", controller.UpdatePassword);
 
 //Rendering Edit Deatils Post Request
 UserRoute.post("/editDetails", controller.Editdetails);
+
+//Rendering Reset Password post Request
+UserRoute.post("/resetPassword", controller.ResetPassword);
 
 module.exports= UserRoute;
