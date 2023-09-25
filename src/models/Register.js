@@ -15,19 +15,18 @@ const UserSchema = mongoose.Schema({
     },
 
     gender: {
-        type: String,
-        required: true
+        type: String
     },
 
     contact: {
         type: Number,
         required: true,
-        unique: true
+        unique: true,
+        default: 0
     },
 
     password: {
         type: String,
-        required: true
     },
     token: {
         type: String,

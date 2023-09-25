@@ -1,9 +1,12 @@
+require("../Auth/Auth");
 const express = require("express");
 const UserRoute = express();
 const path = require("path");
 const bodyparser= require("body-parser");
 const Register = require("../models/Register");
 const Tasks= require("../models/Tasks");
+const passport = require("passport");
+
 
 UserRoute.use(bodyparser.json());
 UserRoute.use(bodyparser.urlencoded({extended:true}));
@@ -21,10 +24,16 @@ UserRoute.use(cookieParser());
 UserRoute.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: config.sessionSecret
+  secret: process.env.COOKIESESSIONKEY,
+  cookie: {
+    secure: false,
+    maxAge: 2*60*60*1000 // Set the session cookie's max age
+  }
 }))
 
 
+UserRoute.use(passport.initialize());
+UserRoute.use(passport.session());
 
 //Setting view Engine ejs
 UserRoute.set('view engine', 'ejs');
@@ -121,6 +130,30 @@ UserRoute.get("/forgotPassword", async (req,res) => {
         res.render("login", {errorMessage: "Internal server error!"});
     }
 })
+
+
+UserRoute.get('/SignInWithGoogle',
+  passport.authenticate('google', { scope:
+      [ 'email', 'profile' ] }
+));
+
+UserRoute.get( '/auth/google/callback',
+    passport.authenticate( 'google', {
+        successRedirect: '/auth/protected',
+        failureRedirect: '/auth/failure',
+}));
+
+UserRoute.get("/auth/failure", (req,res) => {
+    // console.log("Hello");
+    res.redirect("/");
+});
+
+UserRoute.get('/auth/protected', isLogin,(req,res) => {
+    // console.log("Hi");
+    res.redirect("/home");
+})
+
+
 
 
 //Post requests

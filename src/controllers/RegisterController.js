@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 var url = require('url');
 const http =  require("https");
 
+
 const InsertUser= async(req,res) => {
 
     const {name, email, gender, contact, password, confirmPassword} = req.body;
@@ -223,6 +224,10 @@ const ResetPassword = async (req,res) => {
         res.render("login", {errorMessage: "Internal server error"});
     }
 }
+
+
+
+
 
 module.exports = {
     InsertUser,

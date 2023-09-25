@@ -21,7 +21,11 @@ TaskRoute.use(cookieParser());
 TaskRoute.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: config.sessionSecret
+  secret: process.env.COOKIESESSIONKEY,
+  cookie: {
+    secure: false,
+    maxAge: 2*60*60*1000 // Set the session cookie's max age
+  }
 }))
 
 
