@@ -40,8 +40,8 @@ if(process.env.DEPLOYMENT_STATUS == "development"){
 } else if(process.env.DEPLOYMENT_STATUS == "Production"){
     passport.use(new GoogleStrategy(
         {
-        clientID:     process.env.GOOGLE_CLIENT_ID_DEVELOPMENT,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET_DEVELOPMENT,
+        clientID:     process.env.GOOGLE_CLIENT_ID_PRODUCTION,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET_PRODUCTION,
         callbackURL: "https://to-do-list-6thr.onrender.com/auth/google/callback",
         passReqToCallback   : true
     },
