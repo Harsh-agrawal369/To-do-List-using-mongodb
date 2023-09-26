@@ -144,7 +144,7 @@ UserRoute.get( '/auth/google/callback',
 }));
 
 UserRoute.get("/auth/failure", (req,res) => {
-    res.redirect("/");
+    res.redirect("/logout");
 });
 
 UserRoute.get('/auth/protected', isLogin,(req,res) => {
