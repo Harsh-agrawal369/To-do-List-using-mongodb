@@ -37,13 +37,17 @@ if(process.env.DEPLOYMENT_STATUS == "development"){
     }
     ));
     
-} else if(process.env.DEPLOYMENT_STATUS == "Production"){
+} 
+
+else if(process.env.DEPLOYMENT_STATUS == "Production"){
+
     passport.use(new GoogleStrategy(
         {
         clientID:     process.env.GOOGLE_CLIENT_ID_PRODUCTION,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET_PRODUCTION,
         callbackURL: "https://to-do-list-6thr.onrender.com/auth/google/callback",
-        passReqToCallback   : true
+        passReqToCallback   : true,
+        scope: ['email', 'profile', 'https://www.googleapis.com/auth/user.phonenumbers.read']
     },
     function(req, accessToken, refreshToken,profile, done) {
         // return done(null,profile);
@@ -56,7 +60,7 @@ if(process.env.DEPLOYMENT_STATUS == "development"){
                 } else {
                     // console.log(profile);
                     // Create a new user if it doesn't exist
-                    new Register({ email: profile.email, name: profile.displayName, gender: profile.gender, contact: profile.phone_number }).save()
+                    new Register({ email: profile.email, name: profile.displayName, gender: profile.gender, contact: profile.phone_number || ''}).save()
                         .then(user => {
                             return done(null, user);
                         })
@@ -69,8 +73,12 @@ if(process.env.DEPLOYMENT_STATUS == "development"){
 }
 
 passport.serializeUser((req,user, done) => {
-    req.session.user_id = user._id;
-    done(null, user);
+    try{
+        req.session.user_id = user._id;
+        done(null, user._id);
+    }catch(err){
+        console.log(err);
+    }
 });
 
 passport.deserializeUser((id, done) => {

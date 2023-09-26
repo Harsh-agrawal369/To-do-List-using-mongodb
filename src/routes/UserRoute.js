@@ -144,12 +144,10 @@ UserRoute.get( '/auth/google/callback',
 }));
 
 UserRoute.get("/auth/failure", (req,res) => {
-    // console.log("Hello");
     res.redirect("/");
 });
 
 UserRoute.get('/auth/protected', isLogin,(req,res) => {
-    // console.log("Hi");
     res.redirect("/home");
 })
 
