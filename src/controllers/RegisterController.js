@@ -4,6 +4,47 @@ const randomString = require("randomstring");
 const nodemailer = require("nodemailer");
 var url = require('url');
 const http =  require("https");
+const jwt = require("jsonwebtoken");
+const { rejects } = require("assert");
+
+
+const CreateToken = (id) => {
+    console.log("Cookie Created SuccessFully");
+    return jwt.sign({id}, process.env.COOKIESESSIONKEY, {
+        expiresIn: 12 * 60 * 60
+    });
+}
+
+
+const getUserId = (req, res) => {
+    return new Promise((resolve, reject) => {
+        const token = req.cookies.jwt;
+
+        if(token){
+            jwt.verify(token, process.env.COOKIESESSIONKEY, async (err, decodedToken) => {
+                try{
+                    if(err){
+                        console.log("Hi");
+                        res.render("login", {errorMessage: "Internal server error"});
+                        reject(err);
+                    }
+                    else{
+                        console.log(decodedToken.id);
+                        resolve(decodedToken.id);
+                    }
+                }catch(err){
+                    console.log("Hello");
+                    res.render("login", {errorMessage: "Internal server error"});
+                    reject(err);
+                }
+            });
+        } else {
+            console.log("Hey");
+            res.render("login", {errorMessage: "Session Expired"});
+            reject(new Error("Session Expired"));
+        }
+    });
+}
 
 
 const InsertUser= async(req,res) => {
@@ -45,7 +86,8 @@ const LoginUser = async (req,res) => {
             const hashedPassword = user.password;
             const match = await bcrypt.compare(password, hashedPassword);
             if (match) {
-                req.session.user_id = user._id;
+                const token = CreateToken(user._id);
+                res.cookie('jwt', token, {httpOnly: true}, {maxAge: 12 * 60 * 60 * 1000});
                 return res.redirect("/home");
             } else {
                 return res.render("login", { errorMessage: "Wrong Password!" });
@@ -62,9 +104,11 @@ const LoginUser = async (req,res) => {
 const UpdatePassword = async (req,res) => {
 
     try{
-        if(req.session.user_id){
+        const usrId = await getUserId(req,res);
+        if(usrId!="Session Expired"){
             const {Password,confirmPassword} = req.body;
-            const user = await Register.findOne({_id: req.session.user_id});
+            // const usrId = getUserId(req,res);
+            const user = await Register.findOne({_id: usrId});
             if(Password!=confirmPassword){
                 return res.render("changepass", {name: user.name, error: "Passwords do not match!"});
             }
@@ -77,7 +121,7 @@ const UpdatePassword = async (req,res) => {
             }else{
                 let newhashedpassword = await bcrypt.hash(Password, 8);
                 await Register.findOneAndUpdate(
-                    {_id: req.session.user_id},
+                    {_id: usrId},
                     {$set: {password: newhashedpassword}}
                 );
                 res.render("changepass", {name: user.name, error: "password Updated Successfully!"});
@@ -97,7 +141,8 @@ const UpdatePassword = async (req,res) => {
                     {_id: user._id},
                     {$set: {token: ""}}
                 );
-                req.session.user_id=user._id;
+                CreateToken(user._id);
+                res.cookie('jwt', token, {httpOnly: true}, {maxAge: 12 * 60 * 60 * 1000});
 
                 // console.log(user);
                 if(Password!=confirmPassword){
@@ -134,26 +179,27 @@ const UpdatePassword = async (req,res) => {
 const Editdetails = async (req,res) => {
     try{
         const {name , contact, gender} = req.body;
+        const usrId = await getUserId(req,res);
 
         if(name!=""){
             await Register.findOneAndUpdate(
-                {_id: req.session.user_id},
+                {_id: usrId},
                 {$set: {name: name}}
             );
         }
         if(contact!=""){
             await Register.findOneAndUpdate(
-                {_id: req.session.user_id},
+                {_id: usrId},
                 {$set: {contact: contact}}
             );
         }
         if(gender!="Gender"){
             await Register.findOneAndUpdate(
-                {_id: req.session.user_id},
+                {_id: usrId},
                 {$set: {gender: gender}}
             );
         }
-        const user = await Register.findOne({_id: req.session.user_id});
+        const user = await Register.findOne({_id: usrId});
         res.render("myprofile",{name: user.name, data: user, Message: "Details Updated Successfully!"})
     }catch(err){
         console.log(err);
@@ -234,5 +280,7 @@ module.exports = {
     LoginUser,
     UpdatePassword,
     Editdetails, 
-    ResetPassword
+    ResetPassword,
+    CreateToken,
+    getUserId
 }

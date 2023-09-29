@@ -1,17 +1,49 @@
 const Tasks = require("../models/Tasks");
 const UserRoute = require("../routes/UserRoute");
+const jwt = require("jsonwebtoken");
+
+const getUserId = (req, res) => {
+    return new Promise((resolve, reject) => {
+        const token = req.cookies.jwt;
+
+        if(token){
+            jwt.verify(token, process.env.COOKIESESSIONKEY, async (err, decodedToken) => {
+                try{
+                    if(err){
+                        console.log("Hi");
+                        res.render("login", {errorMessage: "Internal server error"});
+                        reject(err);
+                    }
+                    else{
+                        console.log(decodedToken.id);
+                        resolve(decodedToken.id);
+                    }
+                }catch(err){
+                    console.log("Hello");
+                    res.render("login", {errorMessage: "Internal server error"});
+                    reject(err);
+                }
+            });
+        } else {
+            console.log("Hey");
+            res.render("login", {errorMessage: "Session Expired"});
+            reject(new Error("Session Expired"));
+        }
+    });
+}
+
 
 const AddTask = async (req,res) =>{
     
     try{
         const task = req.body.task;
-
+        const usrId = await getUserId(req,res);
         if(task.length==0){
             return res.status(204).send();
         }else{
            
             const NewTask = new Tasks({
-                user_id: req.session.user_id,
+                user_id: usrId,
                 task: task,
                 completed: 0
             })
@@ -43,4 +75,4 @@ const EditTask = async (req,res) => {
 }
 
 
-module.exports = {AddTask, EditTask};
+module.exports = {AddTask, EditTask, getUserId};

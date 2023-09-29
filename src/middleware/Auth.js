@@ -1,25 +1,42 @@
+const jwt = require("jsonwebtoken");
+
+
 const isLogin = async (req, res, next) => {
     try {
-      if (!req.session.user_id) {
+      const token = req.cookies.jwt;
+      if (!token) {
         // Redirect to the login page or perform authentication here
         res.redirect("/");
       } else {
-        next();
+        jwt.verify(token, process.env.COOKIESESSIONKEY, (err, decodedToken) => {
+          if(err){
+            res.redirect("/");
+          }else{
+            next();
+          }
+        })
+       
       }
     } catch (err) {
       console.log(err.message);
     }
-  };
+};
   
   
   
   const isLogout = async (req, res, next) => {
     try {
-      if (req.session.user_id) {
-        // Clear the session
-       
-          // Redirect to the login page or home page after logout
-          res.redirect("/home");
+      const token = req.cookies.jwt;
+      if (token) {
+        // Redirect to the login page or perform authentication here
+        jwt.verify(token, process.env.COOKIESESSIONKEY, (err, decodedToken) => {
+          if(err){
+            next();
+          }else{
+            res.redirect("/home");
+          }
+        })
+        
       } else {
         next();
       }

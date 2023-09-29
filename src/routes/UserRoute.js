@@ -6,6 +6,8 @@ const bodyparser= require("body-parser");
 const Register = require("../models/Register");
 const Tasks= require("../models/Tasks");
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
+
 
 
 UserRoute.use(bodyparser.json());
@@ -16,7 +18,6 @@ const {isLogin, isLogout} = require("../middleware/Auth");
 
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const config = require("../config/config");
 
 
 //Creating session
@@ -43,7 +44,7 @@ UserRoute.set('views', path.join(__dirname, "../views"));
 
 //Get Requests
 //Rendering /
-UserRoute.get("/",isLogout, (req,res) => {
+UserRoute.get("/", (req,res) => {
     res.render("login", {errorMessage: null});
 });
 
@@ -60,7 +61,7 @@ UserRoute.get("/login", isLogout, (req,res) => {
 //Logout function
 UserRoute.get("/logout", isLogin, (req,res) => {
     try{
-      req.session.destroy();
+      res.cookie('jwt', '', {maxAge: 1});
       res.redirect('/');
     }catch(err){
       console.log(err);
@@ -70,8 +71,11 @@ UserRoute.get("/logout", isLogin, (req,res) => {
 //Rendering Home
 UserRoute.get("/home", isLogin, async (req,res)=>{
     try{
-        const user = await Register.findOne({_id: req.session.user_id});
-        const result = await Tasks.find({user_id: req.session.user_id});
+        const usrId = await controller.getUserId(req,res);
+        // console.log(usrId);
+        const user = await Register.findOne({_id: usrId});
+        // console.log(user);
+        const result = await Tasks.find({user_id: usrId});
 
         if(result!=null){
             let count=0;
@@ -94,7 +98,8 @@ UserRoute.get("/home", isLogin, async (req,res)=>{
 //Rendering myProfile
 UserRoute.get("/myprofile", isLogin,async  (req,res) =>{
     try{
-        const user = await Register.findOne({_id: req.session.user_id});
+        const usrId = await controller.getUserId(req,res);
+        const user = await Register.findOne({_id: usrId});
         res.render("myprofile", {name: user.name, data: user});
     }catch(err){
         console.log(err);
@@ -131,6 +136,12 @@ UserRoute.get("/forgotPassword", async (req,res) => {
     }
 })
 
+function setCookie(req, res, next, id) {
+    console.log("Hello");
+    const token = controller.CreateToken(id);
+    res.cookie('jwt', token, { httpOnly: true, maxAge: 12 * 60 * 60 * 1000 });  
+    next()
+  }
 
 UserRoute.get('/SignInWithGoogle',
   passport.authenticate('google', { scope:
@@ -147,8 +158,11 @@ UserRoute.get("/auth/failure", (req,res) => {
     res.redirect("/logout");
 });
 
-UserRoute.get('/auth/protected', isLogin,(req,res) => {
+UserRoute.get('/auth/protected', (req,res) => {
+    // console.log(req.id);
+    setCookie(req.id);
     res.redirect("/home");
+    
 })
 
 

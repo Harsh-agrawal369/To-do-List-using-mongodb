@@ -2,6 +2,15 @@ const passport = require("passport");
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const dotenv = require("dotenv");
 const Register = require("../models/Register");
+const jwt = require("jsonwebtoken");
+
+dotenv.config();
+
+const CreateToken = (id) => {
+    return jwt.sign({id}, process.env.COOKIESESSIONKEY, {
+        expiresIn: 12 * 60 * 60
+    });
+}
 
 
 
@@ -21,7 +30,7 @@ if(process.env.DEPLOYMENT_STATUS == "development"){
         // console.log(profile.phone_number);
         Register.findOne({ email: profile.email })
             .then(user => {
-                if (user) {
+                if (user) { 
                     return done(null, user);
                 } else {
                     // console.log(profile);
@@ -72,17 +81,22 @@ else if(process.env.DEPLOYMENT_STATUS == "Production"){
     ));
 }
 
-passport.serializeUser((req,user, done) => {
-    try{
-        req.session.user_id = user._id;
-        done(null, user._id);
-    }catch(err){
+
+passport.serializeUser((user, done) => {
+    try {
+        done(null, { id: user._id });
+    } catch (err) {
         console.log(err);
+        done(err);
     }
 });
+
+
 
 passport.deserializeUser((id, done) => {
     Register.findById(id).then((user) => {
         done(null, user);
     });
 });
+
+

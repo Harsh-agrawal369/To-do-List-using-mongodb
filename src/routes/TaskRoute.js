@@ -11,23 +11,13 @@ TaskRoute.use(bodyparser.urlencoded({extended:true}));
 const controller= require("../controllers/TasksController");
 const {isLogin, isLogout} = require("../middleware/Auth");
 
-const session = require("express-session");
+// const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const config = require("../config/config");
+
 
 
 //Creating session
 TaskRoute.use(cookieParser());
-TaskRoute.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: process.env.COOKIESESSIONKEY,
-  cookie: {
-    secure: false,
-    maxAge: 2*60*60*1000 // Set the session cookie's max age
-  }
-}))
-
 
 
 //Setting view Engine ejs
