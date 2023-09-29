@@ -104,10 +104,10 @@ const LoginUser = async (req,res) => {
 const UpdatePassword = async (req,res) => {
 
     try{
-        const usrId = await getUserId(req,res);
-        if(usrId!="Session Expired"){
+        const token =  req.cookies.jwt;
+        if(token){
             const {Password,confirmPassword} = req.body;
-            // const usrId = getUserId(req,res);
+            const usrId = await getUserId(req,res);
             const user = await Register.findOne({_id: usrId});
             if(Password!=confirmPassword){
                 return res.render("changepass", {name: user.name, error: "Passwords do not match!"});
@@ -124,7 +124,8 @@ const UpdatePassword = async (req,res) => {
                     {_id: usrId},
                     {$set: {password: newhashedpassword}}
                 );
-                res.render("changepass", {name: user.name, error: "password Updated Successfully!"});
+                res.cookie('jwt', '', {maxAge: 1});
+                res.render("login", {errorMessage: "password Updated Successfully! please Login."})
             }
         }
         else{
@@ -136,14 +137,14 @@ const UpdatePassword = async (req,res) => {
             if(tokenData){
                 const {Password,confirmPassword} = req.body;
                 const user = await Register.findOne({_id: tokenData._id});
-
+                // console.log(user._id);
+                const token1 = CreateToken(user._id);
+                res.cookie('jwt', token1, {httpOnly: true}, {maxAge: 12 * 60 * 60 * 1000});
                 await Register.findOneAndUpdate(
                     {_id: user._id},
                     {$set: {token: ""}}
                 );
-                CreateToken(user._id);
-                res.cookie('jwt', token, {httpOnly: true}, {maxAge: 12 * 60 * 60 * 1000});
-
+                
                 // console.log(user);
                 if(Password!=confirmPassword){
                     return res.render("changepass", {error: "Passwords do not match!"});

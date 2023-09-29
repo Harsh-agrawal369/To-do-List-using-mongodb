@@ -136,11 +136,10 @@ UserRoute.get("/forgotPassword", async (req,res) => {
     }
 })
 
-function setCookie(req, res, next, id) {
-    console.log("Hello");
-    const token = controller.CreateToken(id);
+function setCookie(req, res) {
+    // console.log("Hello");
+    const token = controller.CreateToken(req.user._id);
     res.cookie('jwt', token, { httpOnly: true, maxAge: 12 * 60 * 60 * 1000 });  
-    next()
   }
 
 UserRoute.get('/SignInWithGoogle',
@@ -159,8 +158,8 @@ UserRoute.get("/auth/failure", (req,res) => {
 });
 
 UserRoute.get('/auth/protected', (req,res) => {
-    // console.log(req.id);
-    setCookie(req.id);
+    // console.log(req.user._id);
+    setCookie(req,res);
     res.redirect("/home");
     
 })

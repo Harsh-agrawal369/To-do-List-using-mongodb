@@ -84,7 +84,7 @@ else if(process.env.DEPLOYMENT_STATUS == "Production"){
 
 passport.serializeUser((user, done) => {
     try {
-        done(null, { id: user._id });
+        done(null,user._id );
     } catch (err) {
         console.log(err);
         done(err);
